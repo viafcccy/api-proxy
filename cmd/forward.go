@@ -26,15 +26,16 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 
+		cfg, err := config.GetConfig()
+		if err != nil {
+			panic(fmt.Errorf("config load fail: %v", err))
+		}
+
 		if targetHost == "" {
-			cfg, err := config.GetConfig()
-			if err != nil {
-				panic(fmt.Errorf("config load fail: %v", err))
-			}
 			targetHost = cfg.Forward.TargetHost
 		}
 
-		forward.Run(targetHost)
+		forward.Run(targetHost, cfg.Forward.ServerPort)
 	},
 }
 

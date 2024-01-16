@@ -2,6 +2,7 @@ package forward
 
 import (
 	"crypto/tls"
+	"fmt"
 	"log"
 	"net/http"
 	"net/http/httputil"
@@ -38,7 +39,7 @@ func forwardRequest(target string) http.HandlerFunc {
 	}
 }
 
-func Run(target string) {
+func Run(target string, port string) {
 	// 目标服务器地址，请替换为实际地址
 	// 测试地址：https://jsonplaceholder.typicode.com/todos/1
 
@@ -46,8 +47,8 @@ func Run(target string) {
 	http.HandleFunc("/", forwardRequest(target))
 
 	// 启动HTTP服务器
-	log.Println("Starting HTTP server on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	log.Printf("Starting HTTP server on :%s", port)
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil); err != nil {
 		log.Fatalf("Failed to start HTTP server: %v", err)
 	}
 }

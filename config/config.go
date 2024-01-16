@@ -14,6 +14,7 @@ type Config struct {
 
 type ForwardConfig struct {
 	TargetHost string `yaml:"target_host"`
+	ServerPort string `yaml:"server_port"`
 }
 
 func GetConfig() (*Config, error) {
