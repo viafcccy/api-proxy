@@ -1,0 +1,2 @@
+forward:
+  target_host: https://jsonplaceholder.typicode.com
